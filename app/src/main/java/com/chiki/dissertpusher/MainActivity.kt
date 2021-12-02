@@ -59,6 +59,11 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         binding.dessertButton.setImageResource(currentDessert.imageId)
         showCurrentDessert()
     }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_REVENUE,revenue)
+        outState.putInt(KEY_DESSERT_SOLD,dessertSold)
+    }
 
     //Menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -71,14 +76,6 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         }
         return super.onOptionsItemSelected(item)
     }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt(KEY_REVENUE,revenue)
-        outState.putInt(KEY_DESSERT_SOLD,dessertSold)
-    }
-
-    //Menu methods
     private fun onShare(){
         val shareIntent = ShareCompat.IntentBuilder.from(this)
             .setText(getString(R.string.share_text,dessertSold,revenue))
